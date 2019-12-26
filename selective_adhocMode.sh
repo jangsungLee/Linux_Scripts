@@ -54,7 +54,7 @@ sudo echo "no-resolv" >> /etc/dnsmasq.conf
 sudo echo "#Interface to use" >> /etc/dnsmasq.conf
 sudo echo "interface=wlan0" >> /etc/dnsmasq.conf
 sudo echo "bind-interfaces" >> /etc/dnsmasq.conf
-sudo echo "dhcp-range=10.0.0.3,10.0.0.20,12h" >> /etc/dnsmasq.conf
+sudo echo "dhcp-range=192.168.4.2,192.168.4.254,24h" >> /etc/dnsmasq.conf
 sudo echo "server=8.8.8.8" >> /etc/dnsmasq.conf
 
 echo -e "\033[36m"editting /etc/network/interfaces"\033[0m"
@@ -85,7 +85,7 @@ if [[ "$STR" == *"exit 0" ]];then
         echo "    iptables-restore < /etc/iptables.ipv4.nat" >> /etc/rc.local
         echo "    echo \"Creating RPI Hotspot network\"" >> /etc/rc.local
         echo "    ifconfig wlan0 down" >> /etc/rc.local
-        echo "    ifconfig wlan0 10.0.0.5 netmask 255.255.255.0 up" >> /etc/rc.local
+        echo "    ifconfig wlan0 192.168.4.1 netmask 255.255.255.0 up" >> /etc/rc.local
         echo "    service dnsmasq start" >> /etc/rc.local
         echo "    service hostapd start" >> /etc/rc.local
         echo "    echo \" \"" >> /etc/rc.local
