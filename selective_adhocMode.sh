@@ -114,7 +114,7 @@ if [[ "$STR" == *"exit 0" ]];then
         echo "                    connected=true" >> /etc/rc.local
         echo "                    break" >> /etc/rc.local
         echo "                else" >> /etc/rc.local
-        echo "                    echo "DHCP server did not respond with an IP lease (DHCPOFFER)\"" >> /etc/rc.local
+        echo "                    echo \"DHCP server did not respond with an IP lease (DHCPOFFER)\"" >> /etc/rc.local
         echo "                    wpa_cli terminate" >> /etc/rc.local
         echo "                    break" >> /etc/rc.local
         echo "                fi" >> /etc/rc.local
