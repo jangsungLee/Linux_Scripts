@@ -37,3 +37,10 @@ network={
         psk="abcd1234"  
         priority=3 # priority   
 }  
+###### 이 스크립트가 동작하기 위해 작성되어지는 곳
+/etc/hostapd/hostapd.conf (초기에는 존재하지 않고, 내가 직접 생성해준것임)  
+/etc/default/hostapd
+/etc/dnsmasq.conf
+/etc/network/interfaces
+/etc/rc.local
+/etc/sysctl.conf
