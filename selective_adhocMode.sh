@@ -38,7 +38,7 @@ sudo echo "wpa_key_mgmt=WPA-PSK" >> /etc/hostapd/hostapd.conf
 sudo echo "wpa_pairwise=TKIP" >> /etc/hostapd/hostapd.conf
 sudo echo "rsn_pairwise=CCMP" >> /etc/hostapd/hostapd.conf
 
-echo -e "\033[36m"editting /etc/default/hostapd - (config)"\033[0m"
+echo -e "\033[36m"editting /etc/default/hostapd - \(config\)"\033[0m"
 sudo sed -i  's/\#DAEMON_CONF\=\"\"/DAEMON_CONF\=\"\/etc\/hostapd\/hostapd.conf\"/' /etc/default/hostapd
 
 echo -e "\033[36m"editting /etc/dnsmasq.conf"\033[0m"
@@ -114,7 +114,7 @@ if [[ "$STR" == *"exit 0" ]];then
         echo "                    connected=true" >> /etc/rc.local
         echo "                    break" >> /etc/rc.local
         echo "                else" >> /etc/rc.local
-        echo "                    echo \"DHCP server did not respond with an IP lease (DHCPOFFER)\"" >> /etc/rc.local
+        echo "                    echo "DHCP server did not respond with an IP lease (DHCPOFFER)\"" >> /etc/rc.local
         echo "                    wpa_cli terminate" >> /etc/rc.local
         echo "                    break" >> /etc/rc.local
         echo "                fi" >> /etc/rc.local
