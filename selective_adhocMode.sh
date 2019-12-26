@@ -22,6 +22,11 @@ sudo apt-get install dnsmasq -y
 sudo systemctl disable hostapd
 sudo systemctl disable dnsmasq
 
+if [ $(id -u) -ne 0 ]; then
+	echo "Please run as root."
+	exit
+fi
+
 echo -e "\033[36m""\033[0m"
 echo -e "\033[36m"editting /etc/hostapd/hostapd.conf"\033[0m"
 sudo echo "interface=wlan0" >> /etc/hostapd/hostapd.conf
@@ -59,11 +64,11 @@ sudo echo "iface wlan0 inet manual" >> /etc/network/interfaces
 sudo echo "#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" >> /etc/network/interfaces
 
 echo -e "\033[36m"editting routing between eth0 and wlan0"\033[0m"
+sudo sed -i 's/\#net.ipv4.ip_forward\=1/net.ipv4.ip_forward\=1/' /etc/sysctl.conf
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
 sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
 sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
-#sudo sed -i 's/exit 0/iptables\-restore \< \/etc\/iptables\.ipv4\.nat\n\n exit 0/' /etc/rc.local
 
 echo "echo -e \"\\033[36m\"               \"\\033[0m\""
 COUNT=$(cat /etc/rc.local | wc -l)
