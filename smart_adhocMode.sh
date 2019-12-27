@@ -70,6 +70,8 @@ sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -
 sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
+mkdir /etc/selective_adhocMode
+echo "operation=ON" >> /etc/selective_adhocMode/config
 echo "echo -e \"\\033[36m\"               \"\\033[0m\""
 COUNT=$(cat /etc/rc.local | wc -l)
 STR=$(sed -n $COUNT'p' /etc/rc.local)
@@ -93,6 +95,25 @@ if [[ "$STR" == *"exit 0" ]];then
         echo "    echo \" \"" >> /etc/rc.local
         echo "}" >> /etc/rc.local
         echo "" >> /etc/rc.local
+	
+	echo "COUNT=\"\$(cat /etc/selective_adhocMode/config | wc -l)\"" >> /etc/rc.local
+	echo "operation=false" >> /etc/rc.local
+	echo "while [[ \$COUNT -gt 0 ]]" >> /etc/rc.local
+	echo "do" >> /etc/rc.local
+	echo "     STR=\$(sed -n \$COUNT'p' /etc/selective_adhocMode/config)" >> /etc/rc.local
+	echo "     if [[ "\$STR" == *"operation=ON"* ]];" >> /etc/rc.local
+	echo "     then" >> /etc/rc.local
+	echo "         #echo \"found the message : \$STR\"" >> /etc/rc.local
+	echo "         operation=true" >> /etc/rc.local
+	echo "         break" >> /etc/rc.local
+	echo "     fi" >> /etc/rc.local
+	echo "    let COUNT=\$((COUNT -1))" >> /etc/rc.local
+	echo "done" >> /etc/rc.local
+	echo "" >> /etc/rc.local
+	
+	echo "if \$operation" >> /etc/rc.local
+	echo "then" >> /etc/rc.local
+	
         echo "echo \"=================================\"" >> /etc/rc.local
         echo "echo \"RPi Network Conf Bootstrapper\"" >> /etc/rc.local
         echo "echo \"=================================\"" >> /etc/rc.local
@@ -138,6 +159,9 @@ if [[ "$STR" == *"exit 0" ]];then
         echo "    createAdHocNetwork" >> /etc/rc.local
         echo "fi" >> /etc/rc.local
         echo "" >> /etc/rc.local
+	
+	echo "        echo \"YES\"" >> /etc/rc.local
+	echo "fi" >> /etc/rc.local
 
         echo "" >> /etc/rc.local
         echo "exit 0" >> /etc/rc.local
