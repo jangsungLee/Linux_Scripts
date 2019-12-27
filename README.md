@@ -10,6 +10,11 @@ chmod +x selective_adhocMode.sh
 ./selective_adhocMode.sh       OR       ./selective_adhocMode.sh ap_name ap_password  
 sudo reboot  
 
+How to enable/disable
+: nano /etc/selective_adhocMode/config
+  operation=OFF (if you want to disable)
+
+
 Description:  
 The script was written using Raspberry Pi 3 and contains the following: If there is no WiFi which are enable to connect in the   neighborhood,  
 it will automatically switch to ad-Hoc(hostspot) mode. However, this will only work at boot time.  
