@@ -154,3 +154,4 @@ sudo systemctl unmask hostapd
 sudo systemctl enable hostapd
 sudo systemctl start hostapd
 
+echo -e "\033[36m"Installation is finished. Reboot the system."\033[0m"
