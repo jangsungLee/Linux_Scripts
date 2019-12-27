@@ -10,9 +10,9 @@ chmod +x selective_adhocMode.sh
 ./selective_adhocMode.sh       OR       ./selective_adhocMode.sh ap_name ap_password  
 sudo reboot  
 
-How to enable/disable
-: nano /etc/selective_adhocMode/config
-  operation=OFF (if you want to disable)
+How to enable/disable  
+: nano /etc/selective_adhocMode/config  
+  operation=OFF (if you want to disable)  
 
 
 Description:  
