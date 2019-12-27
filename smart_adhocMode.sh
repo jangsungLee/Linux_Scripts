@@ -113,53 +113,51 @@ if [[ "$STR" == *"exit 0" ]];then
 	
 	echo "if \$operation" >> /etc/rc.local
 	echo "then" >> /etc/rc.local
-	
-        echo "echo \"=================================\"" >> /etc/rc.local
-        echo "echo \"RPi Network Conf Bootstrapper\"" >> /etc/rc.local
-        echo "echo \"=================================\"" >> /etc/rc.local
-        echo "echo \"Scanning for known WiFi networks\"" >> /etc/rc.local
-        echo "ssids=( 'mySSID1' 'mySSID2' )" >> /etc/rc.local
-        echo "connected=false" >> /etc/rc.local
-        echo "for ssid in \"\${ssids[@]}\"" >> /etc/rc.local
-        echo "do" >> /etc/rc.local
-        echo "    echo \" \"" >> /etc/rc.local
-        echo "    echo \"checking if ssid available:\" \$ssid" >> /etc/rc.local
-        echo "    echo " "" >> /etc/rc.local
-        echo "    if iwlist wlan0 scan | grep \$ssid > /dev/null" >> /etc/rc.local
-        echo "    then" >> /etc/rc.local
-        echo "        echo \"First WiFi in range has SSID:\" \$ssid" >> /etc/rc.local
+        echo "    echo \"=================================\"" >> /etc/rc.local
+        echo "    echo \"RPi Network Conf Bootstrapper\"" >> /etc/rc.local
+        echo "    echo \"=================================\"" >> /etc/rc.local
+        echo "    echo \"Scanning for known WiFi networks\"" >> /etc/rc.local
+        echo "    ssids=( 'mySSID1' 'mySSID2' )" >> /etc/rc.local
+        echo "    connected=false" >> /etc/rc.local
+        echo "    for ssid in \"\${ssids[@]}\"" >> /etc/rc.local
+        echo "    do" >> /etc/rc.local
+        echo "        echo \" \"" >> /etc/rc.local
+        echo "        echo \"checking if ssid available:\" \$ssid" >> /etc/rc.local
+        echo "        echo " "" >> /etc/rc.local
+        echo "        if iwlist wlan0 scan | grep \$ssid > /dev/null" >> /etc/rc.local
+        echo "        then" >> /etc/rc.local
+        echo "            echo \"First WiFi in range has SSID:\" \$ssid" >> /etc/rc.local
         echo "" >> /etc/rc.local
-        echo "        check_item=\$(sudo cat /etc/wpa_supplicant/wpa_supplicant.conf | grep \$ssid)" >> /etc/rc.local
-        echo "        if [ \${#check_item} -gt 0 ];then" >> /etc/rc.local
-        echo "                echo \"Starting supplicant for WPA/WPA2\"" >> /etc/rc.local
-        echo "                wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf > /dev/null 2>&1" >> /etc/rc.local
-        echo "                echo \"Obtaining IP from DHCP\"" >> /etc/rc.local
-        echo "                if dhclient -1 wlan0" >> /etc/rc.local
-        echo "                then" >> /etc/rc.local
-        echo "                    echo \"Connected to WiFi\"" >> /etc/rc.local
-        echo "                    connected=true" >> /etc/rc.local
+        echo "            check_item=\$(sudo cat /etc/wpa_supplicant/wpa_supplicant.conf | grep \$ssid)" >> /etc/rc.local
+        echo "            if [ \${#check_item} -gt 0 ];then" >> /etc/rc.local
+        echo "                    echo \"Starting supplicant for WPA/WPA2\"" >> /etc/rc.local
+        echo "                    wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf > /dev/null 2>&1" >> /etc/rc.local
+        echo "                    echo \"Obtaining IP from DHCP\"" >> /etc/rc.local
+        echo "                    if dhclient -1 wlan0" >> /etc/rc.local
+        echo "                    then" >> /etc/rc.local
+        echo "                        echo \"Connected to WiFi\"" >> /etc/rc.local
+        echo "                        connected=true" >> /etc/rc.local
+        echo "                        break" >> /etc/rc.local
+        echo "                    else" >> /etc/rc.local
+        echo "                        echo \"DHCP server did not respond with an IP lease (DHCPOFFER)\"" >> /etc/rc.local
+        echo "                        wpa_cli terminate" >> /etc/rc.local
+        echo "                        break" >> /etc/rc.local
+        echo "                    fi" >> /etc/rc.local
+        echo "            else" >> /etc/rc.local
+        echo "                    echo \"There is no the information of \$ssid which is including password.\"" >> /etc/rc.local
+        echo "                    connected=false" >> /etc/rc.local
         echo "                    break" >> /etc/rc.local
-        echo "                else" >> /etc/rc.local
-        echo "                    echo \"DHCP server did not respond with an IP lease (DHCPOFFER)\"" >> /etc/rc.local
-        echo "                    wpa_cli terminate" >> /etc/rc.local
-        echo "                    break" >> /etc/rc.local
-        echo "                fi" >> /etc/rc.local
-        echo "        else" >> /etc/rc.local
-        echo "                echo \"There is no the information of \$ssid which is including password.\"" >> /etc/rc.local
-        echo "                connected=false" >> /etc/rc.local
-        echo "                break" >> /etc/rc.local
+        echo "            fi" >> /etc/rc.local
+        echo "            unset check_item" >> /etc/rc.local
+        echo "         else" >> /etc/rc.local
+        echo "           echo \"Not in range, WiFi with SSID:\" \$ssid" >> /etc/rc.local
         echo "        fi" >> /etc/rc.local
-        echo "        unset check_item" >> /etc/rc.local
-        echo "     else" >> /etc/rc.local
-        echo "       echo \"Not in range, WiFi with SSID:\" \$ssid" >> /etc/rc.local
+        echo "    done" >> /etc/rc.local
+        echo "" >> /etc/rc.local
+        echo "    if ! \$connected; then" >> /etc/rc.local
+        echo "        createAdHocNetwork" >> /etc/rc.local
         echo "    fi" >> /etc/rc.local
-        echo "done" >> /etc/rc.local
         echo "" >> /etc/rc.local
-        echo "if ! \$connected; then" >> /etc/rc.local
-        echo "    createAdHocNetwork" >> /etc/rc.local
-        echo "fi" >> /etc/rc.local
-        echo "" >> /etc/rc.local
-	
 	echo "        echo \"YES\"" >> /etc/rc.local
 	echo "fi" >> /etc/rc.local
 
