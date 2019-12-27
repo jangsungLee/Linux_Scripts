@@ -68,6 +68,7 @@ sudo sed -i 's/\#net.ipv4.ip_forward\=1/net.ipv4.ip_forward\=1/' /etc/sysctl.con
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
 sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
 sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+iptables -I FORWARD 1 -m state --state ESTABLISHED,RELATED -j ACCEPT
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 echo "echo -e \"\\033[36m\"               \"\\033[0m\""
