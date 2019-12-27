@@ -96,6 +96,7 @@ if [[ "$STR" == *"exit 0" ]];then
         echo "}" >> /etc/rc.local
         echo "" >> /etc/rc.local
 	
+	echo "" >> /etc/rc.local
 	echo "COUNT=\"\$(cat /etc/selective_adhocMode/config | wc -l)\"" >> /etc/rc.local
 	echo "operation=false" >> /etc/rc.local
 	echo "while [[ \$COUNT -gt 0 ]]" >> /etc/rc.local
