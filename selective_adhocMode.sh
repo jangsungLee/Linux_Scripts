@@ -12,6 +12,11 @@ if [ $# -gt 1 ];then
         AP_PASSWORD=${args[1]}
 fi
 
+if [ $(id -u) -ne 0 ]; then
+	echo "Please run as root."
+	exit
+fi
+
 echo -e "\033[36m"apt-get update"\033[0m"
 sudo apt-get update -y
 
@@ -21,11 +26,6 @@ sudo apt-get install dnsmasq -y
 
 sudo systemctl disable hostapd
 sudo systemctl disable dnsmasq
-
-if [ $(id -u) -ne 0 ]; then
-	echo "Please run as root."
-	exit
-fi
 
 echo -e "\033[36m""\033[0m"
 echo -e "\033[36m"editting /etc/hostapd/hostapd.conf"\033[0m"
