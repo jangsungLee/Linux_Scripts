@@ -164,6 +164,8 @@ if [[ "$STR" == *"exit 0" ]];then
 
         echo "" >> /etc/rc.local
         echo "exit 0" >> /etc/rc.local
+	
+	echo -e "\033[36m"This action can be set in /etc/selective_adhocMode/config"\033[0m"
 
 
 else
