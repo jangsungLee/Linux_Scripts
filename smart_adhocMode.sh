@@ -63,7 +63,7 @@ sudo echo "allow-hotplug wlan0" >> /etc/network/interfaces
 sudo echo "iface wlan0 inet manual" >> /etc/network/interfaces
 sudo echo "#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" >> /etc/network/interfaces
 
-echo -e "\033[36m"editting routing between eth0 and wlan0"\033[0m"
+echo -e "\033[36m"editting routing between eth0 and wlan0 (NAT)"\033[0m"
 sudo sed -i 's/\#net.ipv4.ip_forward\=1/net.ipv4.ip_forward\=1/' /etc/sysctl.conf
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
 #sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
