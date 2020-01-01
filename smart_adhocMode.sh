@@ -75,7 +75,7 @@ sudo sed -i 's/\#net.ipv4.ip_forward\=1/net.ipv4.ip_forward\=1/' /etc/sysctl.con
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 iptables -P FORWARD ACCEPT
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
-
+iptables -t nat -L
 
 mkdir /etc/selective_adhocMode
 echo "operation=ON" >> /etc/selective_adhocMode/config
