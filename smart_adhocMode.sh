@@ -66,14 +66,16 @@ sudo echo "#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" >> /etc/network/in
 echo -e "\033[36m"editting routing between eth0 and wlan0 (NAT)"\033[0m"
 sudo sed -i 's/\#net.ipv4.ip_forward\=1/net.ipv4.ip_forward\=1/' /etc/sysctl.conf
 #sudo echo "1" > /proc/sys/net/ipv4/ip_forward
-#sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
-#sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
-#sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
+sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 #sudo iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE
 #sudo iptables -A FORWARD -i wlan0 -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 #sudo iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-iptables -P FORWARD ACCEPT
+
+#iptables -P FORWARD ACCEPT
+iptables -t nat -S
+iptables -S
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 iptables -t nat -L
 
