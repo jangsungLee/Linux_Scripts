@@ -58,9 +58,21 @@ sudo echo "dhcp-range=192.168.4.2,192.168.4.254,24h" >> /etc/dnsmasq.conf
 sudo echo "server=8.8.8.8" >> /etc/dnsmasq.conf
 
 echo -e "\033[36m"editting /etc/network/interfaces"\033[0m"
+echo -e "\033[36m" Remove /etc/network/interfaces"\033[0m"
+sudo cp /etc/network/interfaces /etc/network/interfaces.bak
+sudo rm /etc/network/interfaces
+sudo echo "auto lo" >> /etc/network/interfaces
 sudo echo "" >> /etc/network/interfaces
-sudo echo "allow-hotplug wlan0" >> /etc/network/interfaces
-sudo echo "iface wlan0 inet manual" >> /etc/network/interfaces
+sudo echo "iface lo inet loopback" >> /etc/network/interfaces
+sudo echo "" >> /etc/network/interfaces
+sudo echo "iface eth0 inet dhcp" >> /etc/network/interfaces
+sudo echo "	pre-up iptables-restore < /etc/iptables.ipv4.nat" >> /etc/network/interfaces
+sudo echo "" >> /etc/network/intefaces
+sudo echo "#allow-hotplug wlan0" >> /etc/network/interfaces
+sudo echo "iface wlan0 inet static" >> /etc/network/interfaces
+sudo echo "	address 192.168.4.1"
+sudo echo "	netmask 255.255.255.0"
+# mask not to scan APs.
 sudo echo "#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf" >> /etc/network/interfaces
 
 echo -e "\033[36m"editting routing between eth0 and wlan0 (NAT)"\033[0m"
