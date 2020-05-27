@@ -2,7 +2,7 @@
 # for Linux
 
 sudo apt-get update
-sudo apt-get install -y xrdp cheese fswebcam build-essential x264 qtcreator qt5-default libqt5* qml-module-qtquick-controls2
+sudo apt-get install -y fonts-unfonts-core xrdp cheese fswebcam build-essential x264 qtcreator qt5-default libqt5* qml-module-qtquick-controls2
 
 mkdir /home/pi/pigpio
 cd /home/pi/pigpio
