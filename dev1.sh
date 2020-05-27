@@ -4,6 +4,14 @@
 sudo apt-get update
 sudo apt-get install -y xrdp cheese fswebcam build-essential x264 qtcreator qt5-default libqt5* qml-module-qtquick-controls2
 
+mkdir /home/pi/pigpio
+cd /home/pi/pigpio
+wget https://github.com/joan2937/pigpio/archive/master.zip
+unzip master.zip
+cd pigpio-master
+make
+sudo make install
+
 # source url : https://imsoftpro.tistory.com/53
 mkdir /pi/home/gstreamer_devgstreamer_dev
 
